@@ -60,18 +60,18 @@ var reporterHooks = function() {
         var resultStatus;
         var attachments;
 
-        if (stepResult.isSuccessful()) {
+        if (stepResult.getStatus() === 'passed') {
             resultStatus = 'passed';
             if (stepResult.hasAttachments()) {
                 attachments = stepResult.getAttachments();
             }
             stepOutput.result.duration = stepResult.getDuration();
-        } else if (stepResult.isPending()) {
+        } else if (stepResult.getStatus() === 'pending') {
             resultStatus = 'pending';
             stepOutput.result.error_message = undefined;
-        } else if (stepResult.isSkipped()) {
+        } else if (stepResult.getStatus() === 'skipped') {
             resultStatus = 'skipped';
-        } else if (stepResult.isUndefined()) {
+        } else if (stepResult.getStatus() === undefined) {
             resultStatus = 'undefined';
         } else {
             resultStatus = 'failed';
